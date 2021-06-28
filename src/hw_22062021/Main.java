@@ -15,6 +15,10 @@ public class Main {
         System.out.println(Arrays.toString(fifthMethod(5, 6)));
         int[] sixth = {6, 5, 3, 2, 11, 4, 5, 2, 4, 8, 9, 1};
         sixthMethod(sixth);
+        int[] seven = {10, 4, 6, 3, 3, 2};
+        System.out.println(seventhMethod(seven));
+        int[] eight = new int[]{3, 5, 6, 7, 8};
+        System.out.println(Arrays.toString(eightMethod(eight, -2)));
     }
 
     public static int[] firstMethod(int[] first) {
@@ -94,13 +98,32 @@ public class Main {
         System.out.println("Наибольшее число: " + max);
     }
 
-/*    public static boolean sevenMethod(int... seven) {
-
+    public static boolean seventhMethod(int[] seven) {
+        int sum = 0;
+        int sumStep = 0;
+        for (int j : seven) {
+            sum += j;
+        }
+        if (sum % 2 != 0) {
+            return false;
+        }
+        int i = 0;
+        while (sumStep < sum / 2) {
+            sumStep += seven[i];
+            i++;
+        }
+        return sumStep == sum / 2;
     }
 
     public static int[] eightMethod(int[] eight, int n) {
-        for (int i = 0; i < eight.length; i++) {
-
+        int k = n % eight.length + eight.length;
+        for (int i = 0; i < k; i++) {
+            int tmp = eight[eight.length - 1];
+            for (int j = eight.length - 1; j > 0; j--) {
+                eight[j] = eight[j - 1];
+            }
+            eight[0] = tmp;
         }
-    }*/
+        return eight;
+    }
 }
