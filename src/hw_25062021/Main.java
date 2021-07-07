@@ -92,6 +92,31 @@ public class Main {
 
     public static void aiTurn() {
         int x, y;
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                if (isCellValid(i, j)) {
+                    map[i][j] = DOT_0;
+                    if (checkWin(DOT_0)) {
+                        return;
+                    }
+                    map[i][j] = DOT_EMPTY;
+                }
+            }
+        }
+
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                if (isCellValid(i, j)) {
+                    map[i][j] = DOT_X;
+                    if (checkWin(DOT_X)) {
+                        map[i][j] = DOT_0;
+                        return;
+                    }
+                    map[i][j] = DOT_EMPTY;
+                }
+            }
+        }
+
         do {
             x = rand.nextInt(SIZE);
             y = rand.nextInt(SIZE);
