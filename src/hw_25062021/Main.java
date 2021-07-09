@@ -20,7 +20,7 @@ public class Main {
         while (true) {
             humanTurn();
             printMap();
-            if (checkWin(DOT_X)) {
+            if (checkWin(DOT_X, DOTS_TO_WIN)) {
                 System.out.println("Вы победили!");
                 break;
             }
@@ -30,7 +30,7 @@ public class Main {
             }
             aiTurn();
             printMap();
-            if (checkWin(DOT_0)) {
+            if (checkWin(DOT_0, DOTS_TO_WIN)) {
                 System.out.println("Победил компьютер!");
                 break;
             }
@@ -96,7 +96,7 @@ public class Main {
             for (int j = 0; j < SIZE; j++) {
                 if (isCellValid(i, j)) {
                     map[i][j] = DOT_0;
-                    if (checkWin(DOT_0)) {
+                    if (checkWin(DOT_0, DOTS_TO_WIN)) {
                         return;
                     }
                     map[i][j] = DOT_EMPTY;
@@ -108,7 +108,34 @@ public class Main {
             for (int j = 0; j < SIZE; j++) {
                 if (isCellValid(i, j)) {
                     map[i][j] = DOT_X;
-                    if (checkWin(DOT_X)) {
+                    if (checkWin(DOT_X, DOTS_TO_WIN)) {
+                        map[i][j] = DOT_0;
+                        return;
+                    }
+                    map[i][j] = DOT_EMPTY;
+                }
+            }
+        }
+
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                if (isCellValid(i, j)) {
+                    map[i][j] = DOT_0;
+                    if (checkWin(DOT_0, DOTS_TO_WIN - 1) &&
+                            Math.random() < 0.5) {
+                        return;
+                    }
+                    map[i][j] = DOT_EMPTY;
+                }
+            }
+        }
+
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                if (isCellValid(i, j)) {
+                    map[i][j] = DOT_X;
+                    if (checkWin(DOT_X, DOTS_TO_WIN - 1) &&
+                            Math.random() < 0.5) {
                         map[i][j] = DOT_0;
                         return;
                     }
@@ -125,32 +152,32 @@ public class Main {
         System.out.println("Компьютер походил в точку " + (x + 1) + " " + (y + 1));
     }
 
-    public static boolean checkWin(char symb) {
-        for (int xx = 0; xx < SIZE - DOTS_TO_WIN + 1; xx++) {
-            for (int yy = 0; yy < SIZE - DOTS_TO_WIN + 1; yy++) {
-                if (checkD(symb, xx, yy) || checkL(symb, xx, yy)) return true;
+    public static boolean checkWin(char symb, int dot) {
+        for (int xx = 0; xx < SIZE - dot + 1; xx++) {
+            for (int yy = 0; yy < SIZE - dot + 1; yy++) {
+                if (checkD(symb, xx, yy, dot) || checkL(symb, xx, yy, dot)) return true;
             }
         }
         return false;
     }
 
-    public static boolean checkD(char symb, int xx, int yy) {
+    public static boolean checkD(char symb, int xx, int yy, int dot) {
         boolean right = true;
         boolean left = true;
-        for (int i = 0; i < DOTS_TO_WIN; i++) {
+        for (int i = 0; i < dot; i++) {
             right &= map[i + xx][i + yy] == symb;
-            left &= map[DOTS_TO_WIN - 1 - i + xx][i + yy] == symb;
+            left &= map[dot - 1 - i + xx][i + yy] == symb;
         }
         return right || left;
     }
 
-    public static boolean checkL(char symb, int xx, int yy) {
+    public static boolean checkL(char symb, int xx, int yy, int dot) {
         boolean line;
         boolean column;
-        for (int i = xx; i < DOTS_TO_WIN + xx; i++) {
+        for (int i = xx; i < dot + xx; i++) {
             line = true;
             column = true;
-            for (int j = yy; j < DOTS_TO_WIN + yy; j++) {
+            for (int j = yy; j < dot + yy; j++) {
                 line &= map[i][j] == symb;
                 column &= map[j][i] == symb;
             }
