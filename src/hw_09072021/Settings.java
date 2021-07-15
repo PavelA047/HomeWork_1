@@ -45,7 +45,5 @@ public class Settings extends JFrame {
             gameWindow.startNewGame(fieldSize, winLength);
             setVisible(false);
         });
-
-        setVisible(false);
     }
 }

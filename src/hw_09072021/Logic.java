@@ -20,10 +20,14 @@ public class Logic {
         printMap();
         if (checkWinLines(DOT_X, DOTS_TO_WIN)) {
             System.out.println("Вы победили!");
+            Win win = new Win();
+            win.setVisible(true);
             return;
         }
         if (isFull()) {
             System.out.println("Ничья");
+            Drawn drawn = new Drawn();
+            drawn.setVisible(true);
             return;
         }
 
@@ -31,10 +35,14 @@ public class Logic {
         printMap();
         if (checkWinLines(DOT_O, DOTS_TO_WIN)) {
             System.out.println("Компьютер победил. Сейчас их даже в шахматы не выиграть...");
+            Loose loose = new Loose();
+            loose.setVisible(true);
             return;
         }
         if (isFull()) {
             System.out.println("Ничья");
+            Drawn drawn = new Drawn();
+            drawn.setVisible(true);
             return;
         }
 

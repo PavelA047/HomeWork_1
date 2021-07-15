@@ -79,21 +79,6 @@ public class BattleMap extends JPanel {
                 }
             }
         }
-
-        if (Logic.checkWinLines(Logic.DOT_X, Logic.DOTS_TO_WIN)) {
-            Win win = new Win();
-            win.setVisible(true);
-        }
-
-        if (Logic.checkWinLines(Logic.DOT_O, Logic.DOTS_TO_WIN)) {
-            Loose loose = new Loose();
-            loose.setVisible(true);
-        }
-
-        if (Logic.isFull()) {
-            Drawn drawn = new Drawn();
-            drawn.setVisible(true);
-        }
     }
 
     private void drawX(Graphics g, int y, int x) {
